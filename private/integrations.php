@@ -26,7 +26,6 @@ final class Integrations
         $ch = curl_init($url);
         curl_setopt_array($ch, [
             CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_CUSTOMREQUEST => $method,
             CURLOPT_CONNECTTIMEOUT => 8,
             CURLOPT_TIMEOUT => 35,
             CURLOPT_HTTPHEADER => array_merge(['Content-Type: application/json'], $headers),
@@ -42,6 +41,9 @@ final class Integrations
                 return strlen($line);
             },
         ]);
+        // CURLOPT_POST permite que o cURL siga o 302 do ContentService como GET.
+        // CUSTOMREQUEST='POST' manteria o método no redirecionamento do Apps Script.
+        if ($method === 'POST') curl_setopt($ch, CURLOPT_POST, true);
         if ($payload !== null) curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload, JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR));
         $body = curl_exec($ch);
         $status = (int)curl_getinfo($ch, CURLINFO_HTTP_CODE);
