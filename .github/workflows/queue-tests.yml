@@ -31,4 +31,6 @@ jobs:
           M3L_TEST_DSN: mysql:host=127.0.0.1;port=3306;dbname=m3l_test_queue;charset=utf8mb4
           M3L_TEST_USER: root
           M3L_TEST_PASSWORD: test-only-password
-        run: php tests/database.php
+        run: |
+          php tests/database.php
+          python3 tests/http.py
