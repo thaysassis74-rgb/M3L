@@ -1,0 +1,36 @@
+name: Testes da fila
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  queue:
+    runs-on: ubuntu-24.04
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: test-only-password
+          MYSQL_DATABASE: m3l_test_queue
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h localhost -ptest-only-password"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Instalar PHP
+        run: sudo apt-get update -qq && sudo apt-get install -y php-cli php-mysql php-curl
+      - name: Sintaxe
+        run: |
+          find bin private public tests -name '*.php' -print0 | xargs -0 -n1 php -l
+          node --check public/app.js
+      - name: Integrações simuladas e banco real
+        env:
+          M3L_TEST_DSN: mysql:host=127.0.0.1;port=3306;dbname=m3l_test_queue;charset=utf8mb4
+          M3L_TEST_USER: root
+          M3L_TEST_PASSWORD: test-only-password
+        run: |
+          php tests/database.php
+          python3 tests/api_flow.py
