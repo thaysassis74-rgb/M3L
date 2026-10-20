@@ -1,0 +1,27 @@
+# Substitua evento.exemplo.com pelo domínio real. Ative HTTPS com Certbot.
+# Ajuste o socket à versão de PHP instalada (exemplo: Ubuntu 24.04 / PHP 8.3).
+limit_req_zone $binary_remote_addr zone=m3l_api:10m rate=5r/s;
+
+server {
+    listen 80;
+    server_name evento.exemplo.com;
+    root /var/www/m3l/public;
+    index index.html;
+    client_max_body_size 32k;
+
+    location / { try_files $uri $uri/ =404; }
+    location /assets/ {
+        expires 7d;
+        add_header Cache-Control "public";
+        try_files $uri =404;
+    }
+    location = /api.php {
+        limit_req zone=m3l_api burst=10 nodelay;
+        limit_req_status 429;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $document_root/api.php;
+        fastcgi_pass unix:/run/php/php8.3-fpm.sock;
+    }
+    location ~ \.php$ { return 404; }
+    location ~ /\. { deny all; }
+}

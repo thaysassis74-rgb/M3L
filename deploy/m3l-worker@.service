@@ -1,0 +1,23 @@
+[Unit]
+Description=M3L fila %i
+After=network-online.target mysql.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/m3l
+ExecStart=/usr/bin/php /var/www/m3l/bin/worker.php %i
+Restart=always
+RestartSec=5
+TimeoutStopSec=300
+KillSignal=SIGTERM
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+UMask=0077
+
+[Install]
+WantedBy=multi-user.target

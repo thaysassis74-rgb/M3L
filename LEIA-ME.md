@@ -1,3 +1,5 @@
+> **Versão com fila:** siga primeiro [DEPLOY-DIGITALOCEAN.md](DEPLOY-DIGITALOCEAN.md). O cadastro e a pesquisa agora são gravados no MySQL, e as integrações são enviadas pelos workers. As instruções antigas abaixo que descrevem envio síncrono foram substituídas. Não publique o novo backend antes de criar o banco e ativar os serviços.
+
 # 3 Liberdades — Thays Assis
 
 Implementação independente em HTML, CSS, JavaScript e PHP 8.1+, sem compilação, WordPress ou Elementor. Requer PHP com cURL, sessões e saída HTTPS para o ActiveCampaign.
