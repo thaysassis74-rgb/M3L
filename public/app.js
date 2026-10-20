@@ -68,7 +68,7 @@ if (form) {
  phone.addEventListener('input', () => {if (document.querySelector('#ddi').value !== '55') return;const n=phone.value.replace(/\D/g,'').slice(0,11);phone.value=n.length>6 ? `(${n.slice(0,2)}) ${n.slice(2,n.length>10?7:6)}-${n.slice(n.length>10?7:6)}` : n.length>2 ? `(${n.slice(0,2)}) ${n.slice(2)}` : n;});
  form.addEventListener('submit', async event => {
   event.preventDefault();const button=form.querySelector('button[type=submit]');const error=document.querySelector('#signup-error');button.disabled=true;button.textContent='Confirmando inscrição…';error.textContent='';
-  try {await init;const payload=Object.fromEntries(new FormData(form));await api('signup',payload);location.assign('obrigado.html');}
+  try {await init;const payload=Object.fromEntries(new FormData(form));await api('signup',payload);window.m3lTracking?.registrationSaved();location.assign('obrigado.html');}
   catch(err){error.textContent=err.message;}finally{button.disabled=false;button.textContent='Quero participar gratuitamente';}
  });
 }
@@ -87,6 +87,44 @@ if (survey) {
   {title:'Você já é aluno da Thays Assis?',options:['Sim, sou aluno do P24','Sim, sou aluno do Mim Black','Não sou aluno']}
  ];
  let step=0;const answers=Array(10).fill('');let ready=false;
+ const groupButton = document.querySelector('#whatsapp');
+ const groupUnavailable = document.querySelector('#group-unavailable');
+ const fallbackGroupUrl = 'https://sndflw.com/i/DlpYsVbaM63GsH6UkXZo';
+ let groupUrl = fallbackGroupUrl;
+ let redirectTimer;
+ function configureGroup(url) {
+  groupUrl = typeof url === 'string' && /^https:\/\/(?:chat\.whatsapp\.com\/[A-Za-z0-9/?=&_-]+|sndflw\.com\/i\/[A-Za-z0-9_-]+)$/.test(url.trim()) ? url.trim() : fallbackGroupUrl;
+  groupButton.href = groupUrl;
+  groupButton.hidden = false;
+  groupUnavailable.hidden = true;
+ }
+ function completeSurvey(redirect = false) {
+  document.querySelector('#progress').style.width = '100%';
+  survey.hidden = true;
+  const complete = document.querySelector('#complete');
+  complete.hidden = false;
+  document.querySelector('#step-count').textContent = 'Check-in concluído';
+  document.querySelector('#skip-copy').hidden = true;
+  groupButton.target = '_self';
+  complete.append(groupButton);
+  groupButton.style.marginTop = '20px';
+  groupButton.style.width = '100%';
+  groupButton.style.background = '#15975b';
+  let notice = document.querySelector('#group-redirect-notice');
+  if (!notice) {
+   notice = document.createElement('p');
+   notice.id = 'group-redirect-notice';
+   complete.append(notice);
+  }
+  notice.textContent = redirect ? 'Você será direcionado ao grupo em instantes. Se não abrir, clique no botão acima.' : 'Entre no grupo para receber as informações da aula.';
+  clearTimeout(redirectTimer);
+  if (redirect) {
+   complete.scrollIntoView({block:'center', behavior:'auto'});
+   redirectTimer = setTimeout(() => location.assign(groupUrl), 2000);
+  }
+ }
+ configureGroup();
+
  const content=document.querySelector('#question');const error=document.querySelector('#survey-error');
  function render(){
   const q=questions[step];document.querySelector('#step-count').textContent=`${step+1} → 10`;document.querySelector('#progress').style.width=`${step*10}%`;content.replaceChildren();
@@ -100,8 +138,8 @@ if (survey) {
  survey.addEventListener('submit',async event=>{
   event.preventDefault();if(!ready)return;save();if(step<9){step++;render();content.querySelector('input')?.focus();return;}
   const next=document.querySelector('#next');next.disabled=true;document.querySelector('#previous').disabled=true;next.textContent='Salvando…';error.textContent='';document.querySelector('#saving').hidden=false;
-  try{await api('survey',{answers});document.querySelector('#progress').style.width='100%';survey.hidden=true;document.querySelector('#complete').hidden=false;document.querySelector('#step-count').textContent='Check-in concluído';document.querySelector('#skip-copy').textContent='Agora entre no grupo para receber as informações da aula.';}
+  try{await api('survey',{answers});completeSurvey(true);}
   catch(err){error.textContent=err.message;}finally{document.querySelector('#saving').hidden=true;next.disabled=false;document.querySelector('#previous').disabled=false;next.textContent='Concluir check-in';}
  });
- init.then(data=>{if(!data.registered){location.replace('index.html');return;}answers[0]=data.email;ready=true;render();if(data.whatsapp){const a=document.querySelector('#whatsapp');a.href=data.whatsapp;a.hidden=false;}else{document.querySelector('#group-unavailable').hidden=false;}if(data.survey_done){survey.hidden=true;document.querySelector('#complete').hidden=false;document.querySelector('#progress').style.width='100%';document.querySelector('#step-count').textContent='Check-in concluído';}}).catch(()=>{content.textContent='Não foi possível carregar seu cadastro. Recarregue a página ou volte para a inscrição.';});
+ init.then(data=>{if(!data.registered){location.replace('index.html');return;}window.m3lTracking?.confirmedLead();answers[0]=data.email;ready=true;render();configureGroup(data.whatsapp);if(data.survey_done)completeSurvey(false);}).catch(()=>{content.textContent='Não foi possível carregar seu cadastro. Recarregue a página ou volte para a inscrição.';});
 }
