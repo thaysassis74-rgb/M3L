@@ -33,4 +33,4 @@ jobs:
           M3L_TEST_PASSWORD: test-only-password
         run: |
           php tests/database.php
-          python3 tests/http.py
+          python3 tests/api_flow.py
