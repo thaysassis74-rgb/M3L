@@ -64,7 +64,9 @@ try{
   $answers=$input['answers']??null;
   if(!is_array($answers)||count($answers)!==10||!array_is_list($answers))respond(422,['message'=>'Responda às 10 perguntas.']);
   foreach($answers as $answer){if(!is_string($answer)||!trim($answer)||strlen($answer)>500)respond(422,['message'=>'Confira suas respostas.']);}
-  if(!filter_var($answers[0],FILTER_VALIDATE_EMAIL)||!ctype_digit($answers[2])||(int)$answers[2]<1||(int)$answers[2]>120)respond(422,['message'=>'Confira seu e-mail e idade.']);
+  $ageBands = ['Menos de 18 anos','De 18 a 25 anos','De 26 a 40 anos','De 41 a 45 anos','De 46 a 60 anos','61 anos ou mais'];
+  $validAge = in_array($answers[2], $ageBands, true) || (ctype_digit($answers[2]) && (int)$answers[2]>=1 && (int)$answers[2]<=120);
+  if(!filter_var($answers[0],FILTER_VALIDATE_EMAIL)||!$validAge)respond(422,['message'=>'Confira seu e-mail e idade.']);
   $leadId = $_SESSION['lead_id'];
   session_write_close();
   receiveSurvey(database(), $leadId, $answers);
