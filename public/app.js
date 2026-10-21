@@ -77,31 +77,31 @@ if (survey) {
  const questions = [
   {title:'Confirme seu melhor e-mail',type:'email'},
   {title:'Qual é o seu sexo?',options:['Feminino','Masculino','Prefiro não informar']},
-  {title:'Qual é sua idade?',type:'number'},
+  {title:'Qual é sua faixa etária?',options:['Menos de 18 anos','De 18 a 25 anos','De 26 a 40 anos','De 41 a 45 anos','De 46 a 60 anos','61 anos ou mais']},
   {title:'Qual é o seu grau de escolaridade?',options:['Ensino fundamental incompleto','Ensino fundamental completo','Ensino médio incompleto','Ensino médio completo','Ensino superior incompleto','Ensino superior completo','Pós-graduação']},
   {title:'Há quanto tempo me acompanha?',options:['Menos de 1 ano','Menos de 2 anos','Acabei de te conhecer','Menos de 6 meses','Mais de 2 anos']},
   {title:'Você já investe?',options:['Sim','Não']},
   {title:'Qual seu nível de conhecimento do mercado financeiro?',options:['Baixo','Já tentei algumas vezes, nunca deu certo','Não tenho conhecimento, sonho em viver de renda','Já sou investidor, quero aprender mais']},
   {title:'Qual é sua profissão atualmente?',options:['Não trabalho no momento / sou estudante','Sou funcionário CLT ou servidor público','Sou autônomo ou profissional liberal (advogado, dentista, consultor etc.)','Sou empreendedor e tenho meu próprio negócio','Trabalho com internet ou marketing digital','Sou empresário e dono de uma empresa consolidada','Sou freelancer ou prestador de serviços','Sou aposentado(a) ou pensionista']},
-  {title:'Qual é sua renda mensal?',options:['Não possuo renda mensal','De R$ 1000,00 a R$ 2000,00','De R$ 2001,00 a R$ 3000,00','De R$ 3001,00 a R$ 5000,00','De R$ 5001,00 a R$ 10000,00','De R$ 10001,00 a R$ 20000,00','Mais de R$ 20000,00']},
+  {title:'Qual é sua renda mensal?',options:['Não possuo renda mensal','De R$ 1.000,00 a R$ 2.000,00','De R$ 2.001,00 a R$ 3.000,00','De R$ 3.001,00 a R$ 5.000,00','De R$ 5.001,00 a R$ 10.000,00','De R$ 10.001,00 a R$ 20.000,00','Mais de R$ 20.000,00']},
   {title:'Você já é aluno da Thays Assis?',options:['Sim, sou aluno do P24','Sim, sou aluno do Mim Black','Não sou aluno']}
  ];
- let step=0;const answers=Array(10).fill('');let ready=false;
+ let step=0;const answers=Array(10).fill('');let ready=false;let submitting=false;
  const content=document.querySelector('#question');const error=document.querySelector('#survey-error');
  function render(){
   const q=questions[step];document.querySelector('#step-count').textContent=`${step+1} → 10`;document.querySelector('#progress').style.width=`${step*10}%`;content.replaceChildren();
   const h=document.createElement('h2');h.id='question-title';h.textContent=q.title;content.append(h);
-  if(q.options){const list=document.createElement('div');list.className='options';q.options.forEach((option,index)=>{const label=document.createElement('label');label.className='option';const radio=document.createElement('input');radio.type='radio';radio.name='answer';radio.value=option;radio.required=true;radio.checked=answers[step]===option;const span=document.createElement('span');span.textContent=String.fromCharCode(65+index)+' · '+option;label.append(radio,span);list.append(label);});content.append(list);}
+  if(q.options){const list=document.createElement('div');list.className='options';q.options.forEach((option,index)=>{const label=document.createElement('label');label.className='option';const radio=document.createElement('input');radio.type='radio';radio.name='answer';radio.value=option;radio.required=true;radio.checked=answers[step]===option;radio.addEventListener('click',()=>{if(!submitting)survey.requestSubmit();});const span=document.createElement('span');span.textContent=String.fromCharCode(65+index)+' · '+option;label.append(radio,span);list.append(label);});content.append(list);}
   else{const input=document.createElement('input');input.name='answer';input.id='answer';input.setAttribute('aria-labelledby','question-title');input.type=q.type;input.required=true;input.value=answers[step];if(q.type==='number'){input.min='1';input.max='120';input.step='1';}else{input.autocomplete='email';input.maxLength=254;}content.append(input);}
-  document.querySelector('#previous').hidden=step===0;document.querySelector('#next').textContent=step===9?'Concluir check-in':'OK ✓';error.textContent='';
+  document.querySelector('#next').hidden=!!q.options;document.querySelector('#previous').hidden=step===0;document.querySelector('#next').textContent=step===9?'Concluir check-in':'OK ✓';error.textContent='';
  }
  function save(){const data=new FormData(survey);answers[step]=String(data.get('answer')||'').trim();}
  document.querySelector('#previous').addEventListener('click',()=>{save();step=Math.max(0,step-1);render();});
  survey.addEventListener('submit',async event=>{
-  event.preventDefault();if(!ready)return;save();if(step<9){step++;render();content.querySelector('input')?.focus();return;}
-  const next=document.querySelector('#next');next.disabled=true;document.querySelector('#previous').disabled=true;next.textContent='Salvando…';error.textContent='';document.querySelector('#saving').hidden=false;
+  event.preventDefault();if(!ready||submitting)return;save();if(step<9){step++;render();content.querySelector('input')?.focus();return;}
+  submitting=true;const next=document.querySelector('#next');next.disabled=true;document.querySelector('#previous').disabled=true;next.textContent='Salvando…';error.textContent='';document.querySelector('#saving').hidden=false;
   try{await api('survey',{answers});document.querySelector('#progress').style.width='100%';survey.hidden=true;document.querySelector('#complete').hidden=false;document.querySelector('#step-count').textContent='Check-in concluído';document.querySelector('#skip-copy').textContent='Agora entre no grupo para receber as informações da aula.';}
-  catch(err){error.textContent=err.message;}finally{document.querySelector('#saving').hidden=true;next.disabled=false;document.querySelector('#previous').disabled=false;next.textContent='Concluir check-in';}
+  catch(err){error.textContent=err.message;next.hidden=false;}finally{submitting=false;document.querySelector('#saving').hidden=true;next.disabled=false;document.querySelector('#previous').disabled=false;next.textContent='Concluir check-in';}
  });
  init.then(data=>{if(!data.registered){location.replace('/');return;}try{if(sessionStorage.getItem('m3l:lead:pending')==='1'&&typeof window.fbq==='function'){window.fbq('track','Lead');sessionStorage.removeItem('m3l:lead:pending');}}catch(e){}answers[0]=data.email;ready=true;render();if(data.whatsapp){const a=document.querySelector('#whatsapp');a.href=data.whatsapp;a.hidden=false;}else{document.querySelector('#group-unavailable').hidden=false;}if(data.survey_done){survey.hidden=true;document.querySelector('#complete').hidden=false;document.querySelector('#progress').style.width='100%';document.querySelector('#step-count').textContent='Check-in concluído';}}).catch(()=>{content.textContent='Não foi possível carregar seu cadastro. Recarregue a página ou volte para a inscrição.';});
 }
