@@ -9,6 +9,9 @@ server {
     index index.html;
     client_max_body_size 32k;
 
+    location = /obrigado { try_files /obrigado.html =404; }
+    location = /obrigado.html { return 302 /obrigado$is_args$args; }
+    location = /index.html { return 302 /$is_args$args; }
     location / { try_files $uri $uri/ =404; }
     location /assets/ {
         expires 7d;
