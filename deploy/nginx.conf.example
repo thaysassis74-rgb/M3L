@@ -9,12 +9,22 @@ server {
     index index.html;
     client_max_body_size 32k;
 
+    gzip on;
+    gzip_vary on;
+    gzip_min_length 1024;
+    gzip_types text/css application/javascript application/json image/svg+xml;
+
+    location ~* \.(?:css|js)$ {
+        expires 7d;
+        add_header Cache-Control "public";
+        try_files $uri =404;
+    }
+
     location = /obrigado { try_files /obrigado.html =404; }
     location = /obrigado.html { return 302 /obrigado$is_args$args; }
-    location = /index.html { return 302 /$is_args$args; }
     location / { try_files $uri $uri/ =404; }
     location /assets/ {
-        expires 7d;
+        expires 30d;
         add_header Cache-Control "public";
         try_files $uri =404;
     }

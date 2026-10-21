@@ -24,7 +24,7 @@ if (form && typeof Element.prototype.animate === 'function') {
   animation.finished.then(() => activeAnimations.delete(animation)).catch(() => activeAnimations.delete(animation));
  };
  if (!motionPreference.matches) {
-  document.querySelectorAll('.hero-inner > .logo, .hero-inner > h1, .hero-inner > .subtitle, .hero-inner > form, .hero-inner > .event-info').forEach((element,index) => reveal(element,index * 90));
+  // Conteúdo da primeira dobra visível imediatamente; animações só na biografia.
   if ('IntersectionObserver' in window) {
    revealObserver = new IntersectionObserver(entries => {
     entries.forEach(entry => {
