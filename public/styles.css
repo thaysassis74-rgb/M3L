@@ -107,3 +107,6 @@
 
 /* Reserva de espaço antes do download: mantém a composição estável. */
 @media(max-width:768px){.hero-art picture{aspect-ratio:1440/1353}.hero-art img{aspect-ratio:1440/1353}.hero-inner .logo{aspect-ratio:1600/417}}
+
+/* Oculta a linha clara embutida na borda inferior da arte desktop. */
+@media(min-width:769px){.hero-art img{clip-path:inset(0 0 4px)}}
