@@ -74,3 +74,15 @@
 @media(max-width:768px){.phone-row{grid-template-columns:104px 1fr}.country .ddi-trigger{height:8.87vw;min-height:35px;padding:0 9px;font-size:12px}.country .ddi-trigger img{width:22px;height:16px}.ddi-dialog{padding:20px}.ddi-dialog .ddi-heading h2{font-size:21px}}
 
 .country .ddi-trigger{justify-content:center;gap:10px}
+
+/* Formulário de inscrição: campos legíveis e confortáveis no celular. */
+@media(max-width:768px){
+ .hero-inner #signup{width:min(560px,calc(100vw - 40px));position:relative;left:50%;transform:translateX(-50%);gap:14px;text-align:left}
+ #signup input,#signup select{height:58px;font-size:16px;padding:0 16px;border-radius:9px}
+ #signup .phone-row{grid-template-columns:104px minmax(0,1fr);gap:10px}
+ #signup .country .ddi-trigger{height:58px;min-height:58px;padding:0 10px;font-size:16px;border-radius:9px}
+ #signup .country .ddi-trigger img{width:24px;height:18px}
+ #signup .country select{padding-left:10px;padding-right:36px}
+ #signup .button{min-height:60px;padding:16px 12px;font-size:14px;line-height:1.4;border-radius:10px}
+ #signup .error{font-size:14px;line-height:1.5}
+}
