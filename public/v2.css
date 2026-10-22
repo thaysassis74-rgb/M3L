@@ -86,8 +86,8 @@
 
 /* Mobile: retrato centralizado e painel sobre a base da poltrona. */
 @media(max-width:768px){
- .v2:not(.checkin) .hero-art{height:78vw;max-height:440px;background:#030b18;overflow:hidden}
+ .v2:not(.checkin) .hero-art{height:78vw;max-height:none;background:#030b18;overflow:hidden}
  .v2:not(.checkin) .hero-art img{position:absolute;display:block;width:166.4%;height:auto;max-width:none;left:50%;top:0;transform:translateX(-64.06%);object-fit:contain;object-position:initial;mask-image:none}
  .v2:not(.checkin) .hero-art:after{inset:80% 0 0}
- .v2:not(.checkin) .hero-inner{margin-top:max(-20vw,-112px)}
+ .v2:not(.checkin) .hero-inner{margin-top:-6vw}
 }
