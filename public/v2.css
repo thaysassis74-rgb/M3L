@@ -58,3 +58,28 @@
  .v2 footer{margin:30px 24px 0;padding:24px 0 36px;font-size:11px;line-height:1.7}
  .v2 footer p+p{font-size:12px;margin-top:22px}
 }
+
+/* Obrigada V2: mesma pesquisa, identidade azul e ciano da captura. */
+.v2.checkin{background:#040f1b;padding:48px 24px 24px}
+.v2.checkin::before{background-image:url('assets/v2/hero.webp');background-position:70% center;opacity:.22;filter:blur(24px)}
+.v2.checkin::after{background:linear-gradient(180deg,rgba(4,15,27,.7),rgba(4,15,27,.92) 65%,#040f1b)}
+.v2.checkin .checkin-header .logo{width:245px;height:auto;margin:auto}
+.v2.checkin .checkin-header h1{width:auto;font-size:36px;line-height:1.25;letter-spacing:-.9px;margin:32px auto 20px}
+.v2.checkin .checkin-header h1 em{color:#12c5ff}
+.v2.checkin .survey-card{background:rgba(6,19,34,.94);border-color:#173044;box-shadow:none}
+.v2.checkin #step-count{color:#12c5ff}
+.v2.checkin .progress-track{background:#173044}
+.v2.checkin .progress-track span{background:#12c5ff}
+.v2.checkin .option{background:#091a2b;border-color:#20374a}
+.v2.checkin .option:has(input:checked){border-color:#12c5ff;background:#0b2537}
+.v2.checkin .option input{accent-color:#12c5ff}
+.v2.checkin .survey-card input:not([type=radio]){background:#040f1b;border-color:#20374a}
+.v2.checkin .survey-nav .button{background:#12c5ff}
+.v2.checkin .survey-nav .button:hover{background:#36ceff}
+.v2.checkin footer{margin:36px auto 0;padding:22px 0;max-width:640px}
+@media(max-width:768px){
+ .v2.checkin{padding:30px 20px 20px}
+ .v2.checkin .checkin-header .logo{width:215px}
+ .v2.checkin .checkin-header h1{font-size:28px;line-height:1.3;letter-spacing:-.6px;margin:26px auto 18px}
+ .v2.checkin footer{margin:30px auto 0}
+}

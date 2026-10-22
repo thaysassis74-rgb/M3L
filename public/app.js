@@ -102,7 +102,7 @@ if (form) {
  phone.addEventListener('input', () => {if (document.querySelector('#ddi').value !== '55') return;const n=phone.value.replace(/\D/g,'').slice(0,11);phone.value=n.length>6 ? `(${n.slice(0,2)}) ${n.slice(2,n.length>10?7:6)}-${n.slice(n.length>10?7:6)}` : n.length>2 ? `(${n.slice(0,2)}) ${n.slice(2)}` : n;});
  form.addEventListener('submit', async event => {
   event.preventDefault();const button=form.querySelector('button[type=submit]');const error=document.querySelector('#signup-error');button.disabled=true;button.textContent='Confirmando inscrição…';error.textContent='';
-  try {await init;const payload=Object.fromEntries(new FormData(form));await api('signup',payload);markPendingLead();location.assign('/obrigado');}
+  try {await init;const payload=Object.fromEntries(new FormData(form));await api('signup',payload);markPendingLead();location.assign(form.dataset.successUrl || '/obrigado');}
   catch(err){error.textContent=err.message;}finally{button.disabled=false;button.textContent='Quero participar gratuitamente';}
  });
 }
@@ -137,5 +137,5 @@ if (survey) {
   try{await api('survey',{answers});document.querySelector('#progress').style.width='100%';survey.hidden=true;document.querySelector('#complete').hidden=false;document.querySelector('#step-count').textContent='Check-in concluído';document.querySelector('#skip-copy').textContent='Agora entre no grupo para receber as informações da aula.';}
   catch(err){error.textContent=err.message;next.hidden=false;}finally{submitting=false;document.querySelector('#saving').hidden=true;next.disabled=false;document.querySelector('#previous').disabled=false;next.textContent='Concluir check-in';}
  });
- init.then(data=>{if(!data.registered){location.replace('/');return;}trackPendingLead();answers[0]=data.email;ready=true;render();if(data.whatsapp){const a=document.querySelector('#whatsapp');a.href=data.whatsapp;a.hidden=false;}else{document.querySelector('#group-unavailable').hidden=false;}if(data.survey_done){survey.hidden=true;document.querySelector('#complete').hidden=false;document.querySelector('#progress').style.width='100%';document.querySelector('#step-count').textContent='Check-in concluído';}}).catch(()=>{content.textContent='Não foi possível carregar seu cadastro. Recarregue a página ou volte para a inscrição.';});
+ init.then(data=>{if(!data.registered){location.replace(survey.dataset.signupUrl || '/');return;}trackPendingLead();answers[0]=data.email;ready=true;render();if(data.whatsapp){const a=document.querySelector('#whatsapp');a.href=data.whatsapp;a.hidden=false;}else{document.querySelector('#group-unavailable').hidden=false;}if(data.survey_done){survey.hidden=true;document.querySelector('#complete').hidden=false;document.querySelector('#progress').style.width='100%';document.querySelector('#step-count').textContent='Check-in concluído';}}).catch(()=>{content.textContent='Não foi possível carregar seu cadastro. Recarregue a página ou volte para a inscrição.';});
 }
