@@ -10,8 +10,8 @@
 .v2 #signup input,.v2 #signup select{height:46.02px;font-size:12.783px;padding:0 16.19px;border-radius:6.818px;background:#061322;border-color:#062237}
 .v2 #signup .phone-row{grid-template-columns:121.016px minmax(0,1fr);gap:10.227px}
 .v2 #signup .country .ddi-trigger{height:46.02px;min-height:0;border-radius:6.818px;background:#061322;font-size:12px}
-.v2 #signup .button{min-height:51.133px;border-radius:11.079px;font-size:11.931px;line-height:1.3;padding:16px 11.93px;background:#DC910D;color:#040f1b}
-.v2 #signup .button:hover{background:#edaa2b;box-shadow:none}
+.v2 #signup .button{min-height:51.133px;border-radius:11.079px;font-size:11.931px;line-height:1.3;padding:16px 11.93px;background:#F2C94C;color:#040f1b}
+.v2 #signup .button:hover{background:#f7d66b;box-shadow:none}
 .v2 .event-info{width:333px;max-width:100%;margin:0 auto;gap:10px;justify-content:center;text-align:left}
 .v2 .event-info>div{gap:5px}
 .v2 .event-info>div+div{padding-left:10px;border-color:#173044}
