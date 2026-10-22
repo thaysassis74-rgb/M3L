@@ -61,7 +61,7 @@
 
 /* Obrigada V2: mesma pesquisa, identidade azul e ciano da captura. */
 .v2.checkin{background:#040f1b;padding:48px 24px 24px}
-.v2.checkin::before{background-image:url('assets/v2/hero.webp');background-position:70% center;opacity:.22;filter:blur(24px)}
+.v2.checkin::before{background-image:url('assets/v2/hero-v2.webp?v=eaa054b');background-position:70% center;opacity:.22;filter:blur(24px)}
 .v2.checkin::after{background:linear-gradient(180deg,rgba(4,15,27,.7),rgba(4,15,27,.92) 65%,#040f1b)}
 .v2.checkin .checkin-header .logo{width:245px;height:auto;margin:auto}
 .v2.checkin .checkin-header h1{width:auto;font-size:36px;line-height:1.25;letter-spacing:-.9px;margin:32px auto 20px}
@@ -90,4 +90,12 @@
  .v2:not(.checkin) .hero-art img{position:absolute;display:block;width:166.4%;height:auto;max-width:none;left:50%;top:0;transform:translateX(-64.06%);object-fit:contain;object-position:initial;mask-image:none}
  .v2:not(.checkin) .hero-art:after{inset:80% 0 0}
  .v2:not(.checkin) .hero-inner{margin-top:-6vw}
+}
+
+/* Arte mobile própria: proporção e enquadramento preservados, mãos livres. */
+.v2 .hero-art picture{display:block}
+@media(max-width:768px){
+ .v2:not(.checkin) .hero-art{height:auto;aspect-ratio:800/625}
+ .v2:not(.checkin) .hero-art picture{aspect-ratio:800/625}
+ .v2:not(.checkin) .hero-art img{position:static;width:100%;height:auto;max-width:100%;left:auto;top:auto;transform:none;object-fit:contain;aspect-ratio:800/625;clip-path:none}
 }
