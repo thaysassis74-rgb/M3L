@@ -10,8 +10,8 @@
 .v2 #signup input,.v2 #signup select{height:46.02px;font-size:12.783px;padding:0 16.19px;border-radius:6.818px;background:#061322;border-color:#062237}
 .v2 #signup .phone-row{grid-template-columns:121.016px minmax(0,1fr);gap:10.227px}
 .v2 #signup .country .ddi-trigger{height:46.02px;min-height:0;border-radius:6.818px;background:#061322;font-size:12px}
-.v2 #signup .button{min-height:51.133px;border-radius:11.079px;font-size:11.931px;line-height:1.3;padding:16px 11.93px;background:#12c5ff}
-.v2 #signup .button:hover{background:#36ceff;box-shadow:none}
+.v2 #signup .button{min-height:51.133px;border-radius:11.079px;font-size:11.931px;line-height:1.3;padding:16px 11.93px;background:#DC910D;color:#040f1b}
+.v2 #signup .button:hover{background:#edaa2b;box-shadow:none}
 .v2 .event-info{width:333px;max-width:100%;margin:0 auto;gap:10px;justify-content:center;text-align:left}
 .v2 .event-info>div{gap:5px}
 .v2 .event-info>div+div{padding-left:10px;border-color:#173044}
@@ -61,7 +61,7 @@
 
 /* Obrigada V2: mesma pesquisa, identidade azul e ciano da captura. */
 .v2.checkin{background:#040f1b;padding:48px 24px 24px}
-.v2.checkin::before{background-image:url('assets/v2/hero.webp');background-position:70% center;opacity:.22;filter:blur(24px)}
+.v2.checkin::before{background-image:url('assets/v2/hero-v2.webp?v=eaa054b');background-position:70% center;opacity:.22;filter:blur(24px)}
 .v2.checkin::after{background:linear-gradient(180deg,rgba(4,15,27,.7),rgba(4,15,27,.92) 65%,#040f1b)}
 .v2.checkin .checkin-header .logo{width:245px;height:auto;margin:auto}
 .v2.checkin .checkin-header h1{width:auto;font-size:36px;line-height:1.25;letter-spacing:-.9px;margin:32px auto 20px}
@@ -90,4 +90,12 @@
  .v2:not(.checkin) .hero-art img{position:absolute;display:block;width:166.4%;height:auto;max-width:none;left:50%;top:0;transform:translateX(-64.06%);object-fit:contain;object-position:initial;mask-image:none}
  .v2:not(.checkin) .hero-art:after{inset:80% 0 0}
  .v2:not(.checkin) .hero-inner{margin-top:-6vw}
+}
+
+/* Arte mobile própria: proporção e enquadramento preservados, mãos livres. */
+.v2 .hero-art picture{display:block}
+@media(max-width:768px){
+ .v2:not(.checkin) .hero-art{height:auto;aspect-ratio:800/625}
+ .v2:not(.checkin) .hero-art picture{aspect-ratio:800/625}
+ .v2:not(.checkin) .hero-art img{position:static;width:100%;height:auto;max-width:100%;left:auto;top:auto;transform:none;object-fit:contain;aspect-ratio:800/625;clip-path:none}
 }
