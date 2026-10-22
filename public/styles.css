@@ -49,7 +49,7 @@
 
 /* Hero desfocada como ambientação do check-in. */
 .checkin{position:relative;isolation:isolate}
-.checkin::before{content:'';position:fixed;inset:-28px;z-index:-2;pointer-events:none;background-image:url('assets/hero.webp');background-size:cover;background-position:65% center;background-repeat:no-repeat;filter:blur(18px);opacity:.48}
+.checkin::before{content:'';position:fixed;inset:-28px;z-index:-2;pointer-events:none;background-image:url('assets/hero.webp?v=2436eb4');background-size:cover;background-position:65% center;background-repeat:no-repeat;filter:blur(18px);opacity:.48}
 .checkin::after{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(180deg,rgba(0,1,27,.6),rgba(0,1,27,.83) 60%,rgba(0,1,27,.96))}
 @media(max-width:768px){.checkin::before{background-position:70% top;opacity:.4;filter:blur(14px)}}
 /* Seletor de país compacto com pesquisa acessível. */
@@ -107,3 +107,6 @@
 
 /* Reserva de espaço antes do download: mantém a composição estável. */
 @media(max-width:768px){.hero-art picture{aspect-ratio:1440/1353}.hero-art img{aspect-ratio:1440/1353}.hero-inner .logo{aspect-ratio:1600/417}}
+
+/* Oculta a linha clara embutida na borda inferior da arte desktop. */
+@media(min-width:769px){.hero-art img{clip-path:inset(0 0 4px)}}

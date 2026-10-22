@@ -1,0 +1,93 @@
+/* V2 — Figma 215:163. Escopo isolado para preservar a captura original. */
+.v2{--bg:#040f1b;--gold:#12c5ff;--muted:#9dadc3;background:#040f1b}
+.v2 .hero{height:877px;background:#030b18}
+.v2 .hero-art img{width:1664px;height:866.667px;left:calc(50% - 832px);top:5.17px;clip-path:inset(0 0 2px);object-fit:cover}
+.v2 .hero-inner{width:515.901px;min-height:738.083px;margin-left:calc(50% - 531px);top:92.06px;padding:31.181px 16.063px;border:.945px solid rgba(141,234,243,.09);border-radius:17.008px;background:rgba(4,15,27,.48);backdrop-filter:blur(6.756px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16.063px;text-align:center}
+.v2 .hero-inner .logo{width:280.997px;height:73.225px;object-fit:contain;margin:0;aspect-ratio:auto}
+.v2 h1{font-size:34.015px;line-height:1.17;letter-spacing:0;width:100%;margin:0;font-weight:700}
+.v2 .subtitle{width:100%;font-size:16.063px;line-height:1.7;color:#b9c8de;margin:0}
+.v2 .hero-inner #signup{width:479.051px;max-width:100%;margin:0;padding:12.283px 28.346px;gap:16.063px;left:auto;text-align:left}
+.v2 #signup input,.v2 #signup select{height:46.02px;font-size:12.783px;padding:0 16.19px;border-radius:6.818px;background:#061322;border-color:#062237}
+.v2 #signup .phone-row{grid-template-columns:121.016px minmax(0,1fr);gap:10.227px}
+.v2 #signup .country .ddi-trigger{height:46.02px;min-height:0;border-radius:6.818px;background:#061322;font-size:12px}
+.v2 #signup .button{min-height:51.133px;border-radius:11.079px;font-size:11.931px;line-height:1.3;padding:16px 11.93px;background:#12c5ff}
+.v2 #signup .button:hover{background:#36ceff;box-shadow:none}
+.v2 .event-info{width:333px;max-width:100%;margin:0 auto;gap:10px;justify-content:center;text-align:left}
+.v2 .event-info>div{gap:5px}
+.v2 .event-info>div+div{padding-left:10px;border-color:#173044}
+.v2 .event-info img{max-height:none;max-width:none;height:auto;flex:none}
+.v2 .event-info .alert-icon{max-height:none}
+.v2 .event-info p{font-size:6.428px;line-height:1.4;color:#12c5ff;text-transform:uppercase}
+.v2 .event-info strong{font-size:6.887px;line-height:1.45;text-transform:none}
+.v2 .about-wrap{background:#051426}
+.v2 .about{width:1183px;max-width:calc(100% - 120px);margin:0 auto;padding:53.37px 0 43px;gap:67px;grid-template-columns:550.362px minmax(0,1fr);background:none}
+.v2 .portrait{height:643.632px;aspect-ratio:550.362/643.632}
+.v2 .bio{padding-top:19.63px}
+.v2 .eyebrow{margin-bottom:26px!important}
+.v2 .bio h2{font-size:39px;letter-spacing:-1px;line-height:1.18;margin-bottom:30px;white-space:nowrap}
+.v2 .bio>p{font-size:18px;line-height:1.8;margin-bottom:14px}
+.v2 footer{margin-top:65px;padding-bottom:62px}
+.v2 .ddi-code{color:#12c5ff}
+@media(min-width:1665px){.v2 .hero{height:52.704vw;min-height:877px}.v2 .hero-art img{width:100%;height:auto;left:0;top:.31vw}.v2 .hero-inner{margin-left:18.09%;top:5.532vw}}
+@media(min-width:769px) and (max-width:1350px){.v2 .hero-inner{margin-left:5%;width:480px}.v2 h1{font-size:31px}.v2 .hero-art img{left:calc(50% - 832px)}.v2 .about{max-width:86%;grid-template-columns:45% minmax(0,1fr);gap:5%;transform:none}.v2 .portrait{height:auto}.v2 .bio h2{font-size:32px;white-space:normal}.v2 .bio>p{font-size:15px}}
+@media(max-width:768px){
+ .v2 .hero{height:auto;padding-bottom:36px;overflow:hidden}
+ .v2 .hero-art{height:clamp(190px,53vw,320px);position:relative}
+ .v2 .hero-art img{position:static;display:block;width:100%;height:100%;max-width:100%;object-fit:cover;object-position:77% 42%;aspect-ratio:auto}
+ .v2 .hero-art:after{inset:70% 0 0;background:linear-gradient(transparent,#030b18)}
+ .v2 .hero-inner{top:auto;position:relative;width:calc(100% - 32px);max-width:516px;min-height:0;margin:-18px auto 0;padding:20px 16px;gap:12px;z-index:1}
+ .v2 .hero-inner .logo{width:210px;height:auto;aspect-ratio:562/148}
+ .v2 .hero-inner h1{font-size:clamp(24px,6.3vw,34px);line-height:1.17;margin:0;width:100%;letter-spacing:-.35px}
+ .v2 .hero-inner .subtitle{font-size:13px;line-height:1.6;margin:0}
+ .v2 .hero-inner #signup{position:static;width:100%;max-width:100%;margin:0;padding:4px 0;gap:12px}
+ .v2 #signup input,.v2 #signup select{height:52px;font-size:16px;padding:0 13px;border-radius:8px}
+ .v2 #signup .phone-row{grid-template-columns:96px minmax(0,1fr);gap:10px}
+ .v2 #signup .country .ddi-trigger{height:52px;min-height:52px;font-size:15px;border-radius:8px}
+ .v2 #signup .button{min-height:54px;font-size:12px;line-height:1.4;padding:15px 8px;border-radius:9px}
+ .v2 .event-info{width:100%;gap:7px}
+ .v2 .event-info>div{gap:4px}
+ .v2 .event-info>div+div{padding-left:7px}
+ .v2 .event-info p{font-size:6.8px}
+ .v2 .event-info strong{font-size:7.3px}
+ .v2 .about{display:flex;max-width:560px;width:100%;padding:32px 24px 36px;gap:28px;margin:0 auto;transform:none}
+ .v2 .portrait{width:100%;height:auto;aspect-ratio:550.362/643.632;border-radius:15px}
+ .v2 .bio{padding:0}
+ .v2 .eyebrow{font-size:12px!important;line-height:1.45!important;margin-bottom:14px!important}
+ .v2 .bio h2{font-size:30px;line-height:1.2;letter-spacing:-.5px;max-width:none;white-space:normal;margin-bottom:22px}
+ .v2 .bio>p{font-size:15px;line-height:1.8;margin-bottom:18px}
+ .v2 footer{margin:30px 24px 0;padding:24px 0 36px;font-size:11px;line-height:1.7}
+ .v2 footer p+p{font-size:12px;margin-top:22px}
+}
+
+/* Obrigada V2: mesma pesquisa, identidade azul e ciano da captura. */
+.v2.checkin{background:#040f1b;padding:48px 24px 24px}
+.v2.checkin::before{background-image:url('assets/v2/hero.webp');background-position:70% center;opacity:.22;filter:blur(24px)}
+.v2.checkin::after{background:linear-gradient(180deg,rgba(4,15,27,.7),rgba(4,15,27,.92) 65%,#040f1b)}
+.v2.checkin .checkin-header .logo{width:245px;height:auto;margin:auto}
+.v2.checkin .checkin-header h1{width:auto;font-size:36px;line-height:1.25;letter-spacing:-.9px;margin:32px auto 20px}
+.v2.checkin .checkin-header h1 em{color:#12c5ff}
+.v2.checkin .survey-card{background:rgba(6,19,34,.94);border-color:#173044;box-shadow:none}
+.v2.checkin #step-count{color:#12c5ff}
+.v2.checkin .progress-track{background:#173044}
+.v2.checkin .progress-track span{background:#12c5ff}
+.v2.checkin .option{background:#091a2b;border-color:#20374a}
+.v2.checkin .option:has(input:checked){border-color:#12c5ff;background:#0b2537}
+.v2.checkin .option input{accent-color:#12c5ff}
+.v2.checkin .survey-card input:not([type=radio]){background:#040f1b;border-color:#20374a}
+.v2.checkin .survey-nav .button{background:#12c5ff}
+.v2.checkin .survey-nav .button:hover{background:#36ceff}
+.v2.checkin footer{margin:36px auto 0;padding:22px 0;max-width:640px}
+@media(max-width:768px){
+ .v2.checkin{padding:30px 20px 20px}
+ .v2.checkin .checkin-header .logo{width:215px}
+ .v2.checkin .checkin-header h1{font-size:28px;line-height:1.3;letter-spacing:-.6px;margin:26px auto 18px}
+ .v2.checkin footer{margin:30px auto 0}
+}
+
+/* Mobile: retrato centralizado e painel sobre a base da poltrona. */
+@media(max-width:768px){
+ .v2:not(.checkin) .hero-art{height:78vw;max-height:440px;background:#030b18;overflow:hidden}
+ .v2:not(.checkin) .hero-art img{position:absolute;display:block;width:166.4%;height:auto;max-width:none;left:50%;top:0;transform:translateX(-64.06%);object-fit:contain;object-position:initial;mask-image:none}
+ .v2:not(.checkin) .hero-art:after{inset:80% 0 0}
+ .v2:not(.checkin) .hero-inner{margin-top:max(-20vw,-112px)}
+}
