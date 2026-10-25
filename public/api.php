@@ -41,6 +41,13 @@ try{
   if(!empty($input['website']))respond(422,['message'=>'Cadastro inválido.']);
   $name=trim((string)($input['name']??''));$email=trim((string)($input['email']??''));$ddi=(string)($input['ddi']??'55');$number=preg_replace('/\D/','',(string)($input['phone']??''));
   if(strlen($name)<2||strlen($name)>160||strlen($email)>254||!filter_var($email,FILTER_VALIDATE_EMAIL)||!in_array($ddi,array_column(json_decode(file_get_contents(__DIR__.'/assets/countries.json'),true,512,JSON_THROW_ON_ERROR),'ddi'),true)||strlen($number)<4||strlen($number)+strlen($ddi)>15||($ddi==='55'&&!in_array(strlen($number),[10,11],true)))respond(422,['message'=>'Confira seu nome, e-mail e telefone com DDD.']);
+  $utms = [];
+  $submittedUtms = is_array($input['utms'] ?? null) ? $input['utms'] : [];
+  foreach (['utm_source','utm_medium','utm_campaign','utm_content','utm_term'] as $key) {
+   $value = $submittedUtms[$key] ?? '';
+   if (!is_string($value) || strlen($value) > 2000) respond(422,['message'=>'Parâmetros de campanha inválidos.']);
+   $utms[$key] = trim($value);
+  }
   $phone = '+'.$ddi.$number;
   $fingerprint = hash('sha256', json_encode([$name, $email, $phone], JSON_THROW_ON_ERROR));
   $sameAttempt = ($_SESSION['signup_fingerprint'] ?? '') === $fingerprint;
@@ -53,7 +60,7 @@ try{
   // Persiste a chave de repetição na sessão antes de tentar gravar no banco.
   $id = $_SESSION['signup_id'];
   session_write_close();
-  receiveSignup(database(), $id, $name, $email, $phone);
+  receiveSignup(database(), $id, $name, $email, $phone, $utms);
   session_start();
   $_SESSION['lead_id'] = $id;
   unset($_SESSION['contact'], $_SESSION['survey_done']);
@@ -74,3 +81,4 @@ try{
  }
  respond(404,['message'=>'Operação não encontrada.']);
 }catch(JsonException $e){respond(400,['message'=>'Dados inválidos.']);}catch(Throwable $e){error_log('3 Liberdades: falha ao receber cadastro/pesquisa ('.get_class($e).').');respond(503,['message'=>'Não foi possível salvar agora. Seus dados continuam na tela; tente novamente em instantes.']);}
+

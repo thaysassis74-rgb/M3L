@@ -65,7 +65,7 @@ final class QueueWorker
             if ($this->integration === 'activecampaign') {
                 $query = $this->db->prepare('SELECT * FROM leads WHERE id = ?');
             } else {
-                $query = $this->db->prepare('SELECT s.id, s.answers, l.name, l.email, l.phone FROM surveys s JOIN leads l ON l.id = s.lead_id WHERE s.id = ?');
+                $query = $this->db->prepare('SELECT s.id, s.answers, l.name, l.email, l.phone, a.utms FROM surveys s JOIN leads l ON l.id = s.lead_id LEFT JOIN lead_attribution a ON a.lead_id = l.id WHERE s.id = ?');
             }
             $query->execute([$job['entity_id']]);
             $entity = $query->fetch();
@@ -95,3 +95,4 @@ final class QueueWorker
         return true;
     }
 }
+

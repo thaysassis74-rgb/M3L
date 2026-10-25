@@ -28,12 +28,15 @@ function enqueue(PDO $db, string $integration, string $entity): void
 }
 
 // O ID nasce na sessão ANTES da transação; uma resposta perdida pode ser repetida.
-function receiveSignup(PDO $db, string $id, string $name, string $email, string $phone): void
+function receiveSignup(PDO $db, string $id, string $name, string $email, string $phone, array $utms = []): void
 {
     $db->beginTransaction();
     try {
         $query = $db->prepare('INSERT INTO leads (id, name, email, phone) VALUES (?, ?, ?, ?) ON DUPLICATE KEY UPDATE id = id');
         $query->execute([$id, $name, $email, $phone]);
+        // Mantém a atribuição original quando o mesmo cadastro é reenviado.
+        $query = $db->prepare('INSERT INTO lead_attribution (lead_id, utms) VALUES (?, ?) ON DUPLICATE KEY UPDATE lead_id = lead_id');
+        $query->execute([$id, json_encode($utms, JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR)]);
         $query = $db->prepare("INSERT INTO jobs (integration, entity_id) VALUES ('activecampaign', ?) ON DUPLICATE KEY UPDATE id = id");
         $query->execute([$id]);
         $db->commit();
@@ -65,3 +68,4 @@ function receiveSurvey(PDO $db, string $leadId, array $answers): void
         throw $error;
     }
 }
+

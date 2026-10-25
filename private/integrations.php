@@ -137,8 +137,10 @@ final class Integrations
         $result = $this->request('POST', $url, [], [
             'token'=>$this->config['sheets_webhook_token'], 'submissionId'=>$survey['id'],
             'name'=>$survey['name'], 'email'=>$survey['email'], 'phone'=>$survey['phone'],
+            'utms'=>(object)json_decode($survey['utms'] ?? '{}', true, 16, JSON_THROW_ON_ERROR),
             'answers'=>json_decode($survey['answers'], true, 16, JSON_THROW_ON_ERROR),
         ], true);
         if (($result['ok'] ?? false) !== true) throw new DeliveryFailure('Planilha não confirmou o recebimento.');
     }
 }
+

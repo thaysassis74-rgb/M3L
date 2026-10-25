@@ -35,3 +35,10 @@ CREATE TABLE IF NOT EXISTS integration_state (
     resume_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 INSERT IGNORE INTO integration_state (integration) VALUES ('activecampaign'), ('sheets');
+
+
+CREATE TABLE IF NOT EXISTS lead_attribution (
+    lead_id CHAR(48) CHARACTER SET ascii COLLATE ascii_bin PRIMARY KEY,
+    utms JSON NOT NULL,
+    FOREIGN KEY (lead_id) REFERENCES leads(id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

@@ -52,3 +52,13 @@ $negative = new Integrations($config, static fn()=>['ok'=>false]);
 try { $negative->sheets($survey); throw new LogicException('Deveria falhar.'); }
 catch (DeliveryFailure $error) { check(true, 'não confirma entrega quando a planilha responde ok=false'); }
 echo "Testes das integrações concluídos sem chamadas externas.\n";
+
+
+$utmPayload = null;
+$utmClient = new Integrations($config, static function ($method, $url, $headers, $payload) use (&$utmPayload): array {
+    $utmPayload = $payload; return ['ok'=>true];
+});
+$utmClient->sheets($survey + ['utms'=>json_encode(['utm_source'=>'instagram','utm_campaign'=>'aula'])]);
+check($utmPayload['utms']->utm_source === 'instagram' && $utmPayload['utms']->utm_campaign === 'aula', 'UTMs chegam ao webhook da planilha');
+$utmClient->sheets($survey);
+check((array)$utmPayload['utms'] === [], 'pesquisa antiga sem UTMs continua sendo enviada');
