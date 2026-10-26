@@ -12,6 +12,8 @@ final class DeliveryFailure extends RuntimeException
 final class Integrations
 {
     private ?Closure $transport;
+    private $handle = null;
+    private array $resolvedIds = [];
 
     // O transporte alternativo só é usado pelos testes; não vem da requisição web.
     public function __construct(private array $config, ?Closure $transport = null)
@@ -23,8 +25,10 @@ final class Integrations
     {
         if ($this->transport) return ($this->transport)($method, $url, $headers, $payload);
         $retryAfter = 0;
-        $ch = curl_init($url);
+        $ch = $this->handle ??= curl_init();
+        curl_reset($ch); // Preserva o pool de conexões TCP/TLS do handle.
         curl_setopt_array($ch, [
+            CURLOPT_URL => $url,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_CONNECTTIMEOUT => 8,
             CURLOPT_TIMEOUT => 35,
@@ -48,9 +52,9 @@ final class Integrations
         $body = curl_exec($ch);
         $status = (int)curl_getinfo($ch, CURLINFO_HTTP_CODE);
         $errno = curl_errno($ch);
-        curl_close($ch);
+        // Reutiliza a conexão nas próximas chamadas deste worker.
         // Limita o ritmo do único worker desta integração, inclusive em respostas rápidas.
-        usleep(400000);
+        usleep(250000); // Até 4 chamadas/s deste worker; respeita 429/Retry-After.
         if ($body === false || $status < 200 || $status >= 300) {
             $permanent = $status >= 400 && $status < 500 && !in_array($status, [408, 425, 429], true);
             throw new DeliveryFailure('HTTP '.$status.'; cURL '.$errno, $permanent, $retryAfter);
@@ -75,10 +79,12 @@ final class Integrations
 
     private function findId(string $resource, string $field, string $name): string
     {
+        $cacheKey = $resource.':'.$name;
+        if (isset($this->resolvedIds[$cacheKey])) return $this->resolvedIds[$cacheKey];
         for ($offset = 0; $offset < 10000; $offset += 100) {
             $data = $this->ac('GET', $resource.'?limit=100&offset='.$offset);
             foreach ($data[$resource] ?? [] as $row) {
-                if (($row[$field] ?? '') === $name) return (string)$row['id'];
+                if (($row[$field] ?? '') === $name) return $this->resolvedIds[$cacheKey] = (string)$row['id'];
             }
             if (count($data[$resource] ?? []) < 100) break;
         }

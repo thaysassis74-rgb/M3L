@@ -1,0 +1,7 @@
+[Unit]
+Description=Diagnóstico da fila e backup M3L
+[Service]
+Type=oneshot
+User=root
+WorkingDirectory=/var/www/m3l
+ExecStart=/usr/bin/php /var/www/m3l/bin/health.php

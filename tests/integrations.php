@@ -62,3 +62,19 @@ $utmClient->sheets($survey + ['utms'=>json_encode(['utm_source'=>'instagram','ut
 check($utmPayload['utms']->utm_source === 'instagram' && $utmPayload['utms']->utm_campaign === 'aula', 'UTMs chegam ao webhook da planilha');
 $utmClient->sheets($survey);
 check((array)$utmPayload['utms'] === [], 'pesquisa antiga sem UTMs continua sendo enviada');
+
+// Lista/tag por nome são resolvidas uma vez por processo, sem confiar em cache externo.
+$lookups = 0;
+$cachedConfig = $config;
+unset($cachedConfig['list_id'], $cachedConfig['tag_id']);
+$cachedConfig['list_name']='Lista'; $cachedConfig['tag_name']='Tag';
+$cachedClient = new Integrations($cachedConfig, static function($method,$url,$headers,$payload) use (&$lookups): array {
+    if (str_contains($url,'/lists?')) { $lookups++; return ['lists'=>[['id'=>'6','name'=>'Lista']]]; }
+    if (str_contains($url,'/tags?')) { $lookups++; return ['tags'=>[['id'=>'1','tag'=>'Tag']]]; }
+    if (str_contains($url,'contact/sync')) return ['contact'=>['id'=>'42']];
+    if (str_contains($url,'/contactLists')) return ['contactLists'=>[['list'=>'6','status'=>'1']]];
+    if (str_contains($url,'/contactTags')) return ['contactTags'=>[['tag'=>'1']]];
+    throw new LogicException('Chamada inesperada.');
+});
+$cachedClient->activecampaign($lead); $cachedClient->activecampaign($lead);
+check($lookups===2,'lista/tag consultadas só uma vez para vários cadastros');

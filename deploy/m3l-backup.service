@@ -1,0 +1,7 @@
+[Unit]
+Description=Backup local do banco M3L
+[Service]
+Type=oneshot
+User=root
+ExecStart=/bin/bash /var/www/m3l/bin/backup-mysql.sh
+UMask=0077

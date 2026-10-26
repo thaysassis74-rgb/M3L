@@ -22,7 +22,7 @@ final class QueueWorker
         if ($this->locked) {
             // O lock só é liberado quando o worker anterior termina/perde a conexão.
             // Assim, tarefas interrompidas podem ser retomadas sem aguardar cron.
-            $query = $this->db->prepare("UPDATE jobs SET status = CASE WHEN attempts >= 12 THEN 'failed' ELSE 'pending' END, started_at = NULL, last_error = 'Processamento interrompido; retomado pelo worker.' WHERE integration = ? AND status = 'processing'");
+            $query = $this->db->prepare("UPDATE jobs SET status = 'pending', started_at = NULL, last_error = 'Processamento interrompido; retomado pelo worker.' WHERE integration = ? AND status = 'processing'");
             $query->execute([$this->integration]);
         }
         return $this->locked;
@@ -54,7 +54,7 @@ final class QueueWorker
                 $this->db->commit();
                 return false;
             }
-            $query = $this->db->prepare("UPDATE jobs SET status = 'processing', attempts = attempts + 1, started_at = UTC_TIMESTAMP() WHERE id = ?");
+            $query = $this->db->prepare("UPDATE jobs SET status = 'processing', attempts = LEAST(attempts + 1, 1000000), started_at = UTC_TIMESTAMP() WHERE id = ?");
             $query->execute([$job['id']]);
             $this->db->commit();
         } catch (Throwable $error) {
@@ -73,16 +73,21 @@ final class QueueWorker
             $this->client->{$this->integration}($entity);
             $query = $this->db->prepare("UPDATE jobs SET status = 'done', finished_at = UTC_TIMESTAMP(), last_error = NULL WHERE id = ?");
             $query->execute([$job['id']]);
-        } catch (DeliveryFailure $error) {
+        } catch (Throwable $caught) {
+            $error = $caught instanceof DeliveryFailure ? $caught : new DeliveryFailure(
+                'Falha interna recuperável ('.get_class($caught).').'
+            );
             $attempt = (int)$job['attempts'] + 1;
-            $failed = $error->permanent || $attempt >= 12;
+            $failed = $error->permanent; // Falhas temporárias não desistem após 12 tentativas.
             $delay = max($error->retryAfter, min(21600, 15 * (2 ** min(11, $attempt - 1))) + random_int(0, 10));
-            // Uma falha pausa a integração inteira: evita martelar API indisponível/429.
-            // Erros permanentes também recebem um breve intervalo antes do próximo lead.
+            // Backoff longo pertence à tarefa, sem bloquear todos os outros cadastros.
+            // Retry-After continua sendo respeitado pela integração inteira.
+            $pause = $failed ? 0 : max($error->retryAfter, min(60, $delay));
+            if ($failed && (str_contains($error->getMessage(), 'Configure ') || preg_match('/HTTP (401|403)/', $error->getMessage()))) $pause = 60;
             $this->db->beginTransaction();
             try {
                 $query = $this->db->prepare('UPDATE integration_state SET resume_at = ? WHERE integration = ?');
-                $query->execute([gmdate('Y-m-d H:i:s', time() + ($failed ? 60 : $delay)), $this->integration]);
+                $query->execute([gmdate('Y-m-d H:i:s', time() + $pause), $this->integration]);
                 $query = $this->db->prepare('UPDATE jobs SET status = ?, available_at = ?, last_error = ? WHERE id = ?');
                 $query->execute([$failed ? 'failed' : 'pending', gmdate('Y-m-d H:i:s', time() + $delay), $error->getMessage(), $job['id']]);
                 $this->db->commit();
