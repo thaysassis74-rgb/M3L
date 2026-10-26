@@ -140,3 +140,6 @@
 }
 
 .v3 .ddi-dialog{background:#10100e;border-color:#494132}.v3 .ddi-dialog .ddi-search{background:#181610;border-color:#494132;color:#fff}.v3 .ddi-dialog .ddi-option{color:#e8e4d9}.v3 .ddi-dialog .ddi-option:hover{background:#302817}.v3 .ddi-dialog .ddi-close{color:#e8e4d9}
+
+/* Conteúdo sobre a arte, sem quadro no desktop e no celular. */
+.v3:not(.checkin) .hero-inner{background:transparent;border:0;border-radius:0;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none}
