@@ -94,6 +94,19 @@ if (form && typeof Element.prototype.animate === 'function') {
  });
 }
 if (form) {
+ const recovered = document.querySelector('#m3l-navigation-draft');
+ if (recovered) {
+  try {
+   const fields = JSON.parse(recovered.textContent).fields || {};
+   for (const key of ['name','email','phone','website']) {
+    const input = form.elements.namedItem(key);
+    if (input && !input.value && typeof fields[key] === 'string') input.value = fields[key];
+   }
+   const country = form.elements.namedItem('ddi');
+   if (country && Array.from(country.options).some(option => option.value === fields.ddi)) country.value = fields.ddi;
+  } catch (_) {}
+  document.querySelector('#signup-error').textContent = 'Seu cadastro ainda não foi confirmado. Confira os campos e clique em “Quero participar gratuitamente” para concluir.';
+ }
  const phone = document.querySelector('#phone');
  const select = document.querySelector('#ddi');
  const countryBox = select.closest('.country');
