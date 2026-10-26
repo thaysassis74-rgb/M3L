@@ -1,0 +1,142 @@
+/* V3: estilos isolados da campanha. */
+.v3{--bg:#050505;--gold:#e1b63f;--muted:#b9b5aa;background:#050505}
+.v3 .hero{height:877px;background:#000000}
+.v3 .hero-art img{width:1664px;height:866.667px;left:calc(50% - 832px);top:5.17px;clip-path:inset(0 0 2px);object-fit:cover}
+.v3 .hero-inner{width:515.901px;min-height:738.083px;margin-left:calc(50% - 531px);top:92.06px;padding:31.181px 16.063px;border:.945px solid rgba(141,234,243,.09);border-radius:17.008px;background:rgba(5,5,5,.48);backdrop-filter:blur(6.756px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16.063px;text-align:center}
+.v3 .hero-inner .logo{width:280.997px;height:73.225px;object-fit:contain;margin:0;aspect-ratio:auto}
+.v3 h1{font-size:34.015px;line-height:1.17;letter-spacing:0;width:100%;margin:0;font-weight:700}
+.v3 .subtitle{width:100%;font-size:16.063px;line-height:1.7;color:#d0ccc1;margin:0}
+.v3 .hero-inner #signup{width:479.051px;max-width:100%;margin:0;padding:12.283px 28.346px;gap:16.063px;left:auto;text-align:left}
+.v3 #signup input,.v3 #signup select{height:46.02px;font-size:12.783px;padding:0 16.19px;border-radius:6.818px;background:#10100e;border-color:#333026}
+.v3 #signup .phone-row{grid-template-columns:121.016px minmax(0,1fr);gap:10.227px}
+.v3 #signup .country .ddi-trigger{height:46.02px;min-height:0;border-radius:6.818px;background:#10100e;font-size:12px}
+.v3 #signup .button{min-height:51.133px;border-radius:11.079px;font-size:11.931px;line-height:1.3;padding:16px 11.93px;background:#F2C94C;color:#050505}
+.v3 #signup .button:hover{background:#f7d66b;box-shadow:none}
+.v3 .event-info{width:333px;max-width:100%;margin:0 auto;gap:10px;justify-content:center;text-align:left}
+.v3 .event-info>div{gap:5px}
+.v3 .event-info>div+div{padding-left:10px;border-color:#353021}
+.v3 .event-info img{max-height:none;max-width:none;height:auto;flex:none}
+.v3 .event-info .alert-icon{max-height:none}
+.v3 .event-info p{font-size:6.428px;line-height:1.4;color:#e1b63f;text-transform:uppercase}
+.v3 .event-info strong{font-size:6.887px;line-height:1.45;text-transform:none}
+.v3 .about-wrap{background:#0b0b09}
+.v3 .about{width:1183px;max-width:calc(100% - 120px);margin:0 auto;padding:53.37px 0 43px;gap:67px;grid-template-columns:550.362px minmax(0,1fr);background:none}
+.v3 .portrait{height:643.632px;aspect-ratio:550.362/643.632}
+.v3 .bio{padding-top:19.63px}
+.v3 .eyebrow{margin-bottom:26px!important}
+.v3 .bio h2{font-size:39px;letter-spacing:-1px;line-height:1.18;margin-bottom:30px;white-space:nowrap}
+.v3 .bio>p{font-size:18px;line-height:1.8;margin-bottom:14px}
+.v3 footer{margin-top:65px;padding-bottom:62px}
+.v3 .ddi-code{color:#e1b63f}
+@media(min-width:1665px){.v3 .hero{height:52.704vw;min-height:877px}.v3 .hero-art img{width:100%;height:auto;left:0;top:.31vw}.v3 .hero-inner{margin-left:18.09%;top:5.532vw}}
+@media(min-width:769px) and (max-width:1350px){.v3 .hero-inner{margin-left:5%;width:480px}.v3 h1{font-size:31px}.v3 .hero-art img{left:calc(50% - 832px)}.v3 .about{max-width:86%;grid-template-columns:45% minmax(0,1fr);gap:5%;transform:none}.v3 .portrait{height:auto}.v3 .bio h2{font-size:32px;white-space:normal}.v3 .bio>p{font-size:15px}}
+@media(max-width:768px){
+ .v3 .hero{height:auto;padding-bottom:36px;overflow:hidden}
+ .v3 .hero-art{height:clamp(190px,53vw,320px);position:relative}
+ .v3 .hero-art img{position:static;display:block;width:100%;height:100%;max-width:100%;object-fit:cover;object-position:77% 42%;aspect-ratio:auto}
+ .v3 .hero-art:after{inset:70% 0 0;background:linear-gradient(transparent,#000000)}
+ .v3 .hero-inner{top:auto;position:relative;width:calc(100% - 32px);max-width:516px;min-height:0;margin:-18px auto 0;padding:20px 16px;gap:12px;z-index:1}
+ .v3 .hero-inner .logo{width:210px;height:auto;aspect-ratio:562/148}
+ .v3 .hero-inner h1{font-size:clamp(24px,6.3vw,34px);line-height:1.17;margin:0;width:100%;letter-spacing:-.35px}
+ .v3 .hero-inner .subtitle{font-size:13px;line-height:1.6;margin:0}
+ .v3 .hero-inner #signup{position:static;width:100%;max-width:100%;margin:0;padding:4px 0;gap:12px}
+ .v3 #signup input,.v3 #signup select{height:52px;font-size:16px;padding:0 13px;border-radius:8px}
+ .v3 #signup .phone-row{grid-template-columns:96px minmax(0,1fr);gap:10px}
+ .v3 #signup .country .ddi-trigger{height:52px;min-height:52px;font-size:15px;border-radius:8px}
+ .v3 #signup .button{min-height:54px;font-size:12px;line-height:1.4;padding:15px 8px;border-radius:9px}
+ .v3 .event-info{width:100%;gap:7px}
+ .v3 .event-info>div{gap:4px}
+ .v3 .event-info>div+div{padding-left:7px}
+ .v3 .event-info p{font-size:6.8px}
+ .v3 .event-info strong{font-size:7.3px}
+ .v3 .about{display:flex;max-width:560px;width:100%;padding:32px 24px 36px;gap:28px;margin:0 auto;transform:none}
+ .v3 .portrait{width:100%;height:auto;aspect-ratio:550.362/643.632;border-radius:15px}
+ .v3 .bio{padding:0}
+ .v3 .eyebrow{font-size:12px!important;line-height:1.45!important;margin-bottom:14px!important}
+ .v3 .bio h2{font-size:30px;line-height:1.2;letter-spacing:-.5px;max-width:none;white-space:normal;margin-bottom:22px}
+ .v3 .bio>p{font-size:15px;line-height:1.8;margin-bottom:18px}
+ .v3 footer{margin:30px 24px 0;padding:24px 0 36px;font-size:11px;line-height:1.7}
+ .v3 footer p+p{font-size:12px;margin-top:22px}
+}
+
+/* Obrigada V3: mesma pesquisa com identidade dourada. */
+.v3.checkin{background:#050505;padding:48px 24px 24px}
+.v3.checkin::before{background-image:url('assets/v3/HERO_V3.webp');background-position:70% center;opacity:.22;filter:blur(24px)}
+.v3.checkin::after{background:linear-gradient(180deg,rgba(5,5,5,.7),rgba(5,5,5,.92) 65%,#050505)}
+.v3.checkin .checkin-header .logo{width:245px;height:auto;margin:auto}
+.v3.checkin .checkin-header h1{width:auto;font-size:36px;line-height:1.25;letter-spacing:-.9px;margin:32px auto 20px}
+.v3.checkin .checkin-header h1 em{color:#e1b63f}
+.v3.checkin .survey-card{background:rgba(16,16,14,.94);border-color:#353021;box-shadow:none}
+.v3.checkin #step-count{color:#e1b63f}
+.v3.checkin .progress-track{background:#353021}
+.v3.checkin .progress-track span{background:#e1b63f}
+.v3.checkin .option{background:#151411;border-color:#3b3528}
+.v3.checkin .option:has(input:checked){border-color:#e1b63f;background:#292313}
+.v3.checkin .option input{accent-color:#e1b63f}
+.v3.checkin .survey-card input:not([type=radio]){background:#050505;border-color:#3b3528}
+.v3.checkin .survey-nav .button{background:#e1b63f}
+.v3.checkin .survey-nav .button:hover{background:#efc858}
+.v3.checkin footer{margin:36px auto 0;padding:22px 0;max-width:640px}
+@media(max-width:768px){
+ .v3.checkin{padding:30px 20px 20px}
+ .v3.checkin .checkin-header .logo{width:215px}
+ .v3.checkin .checkin-header h1{font-size:28px;line-height:1.3;letter-spacing:-.6px;margin:26px auto 18px}
+ .v3.checkin footer{margin:30px auto 0}
+}
+
+/* Mobile: retrato centralizado e painel sobre a base da poltrona. */
+@media(max-width:768px){
+ .v3:not(.checkin) .hero-art{height:78vw;max-height:none;background:#000000;overflow:hidden}
+ .v3:not(.checkin) .hero-art img{position:absolute;display:block;width:166.4%;height:auto;max-width:none;left:50%;top:0;transform:translateX(-64.06%);object-fit:contain;object-position:initial;mask-image:none}
+ .v3:not(.checkin) .hero-art:after{inset:80% 0 0}
+ .v3:not(.checkin) .hero-inner{margin-top:-6vw}
+}
+
+/* Arte mobile própria: proporção e enquadramento preservados, mãos livres. */
+.v3 .hero-art picture{display:block}
+@media(max-width:768px){
+ .v3:not(.checkin) .hero-art{height:auto;aspect-ratio:800/625}
+ .v3:not(.checkin) .hero-art picture{aspect-ratio:800/625}
+ .v3:not(.checkin) .hero-art img{position:static;width:100%;height:auto;max-width:100%;left:auto;top:auto;transform:none;object-fit:contain;aspect-ratio:800/625;clip-path:none}
+}
+
+/* V3: preto e dourado, com as artes desktop e mobile originais. */
+.v3{--bg:#050505;--gold:#e1b63f;--muted:#b9b5aa}
+.v3 .hero{height:900px;background:#000}
+.v3 .hero-art img{width:1920px;height:1000px;left:calc(50% - 960px);top:0;clip-path:none}
+.v3 .hero-inner{top:64px;width:510px;margin-left:max(5%,calc(50% - 560px));padding:28px 24px;background:rgba(5,5,5,.64);border:1px solid #d2ac4026;backdrop-filter:blur(6px)}
+.v3 .hero-inner .logo{width:270px;height:auto;aspect-ratio:1600/417}
+.v3 .hero-inner #signup{padding:6px 0;width:100%;gap:13px}
+.v3 #signup input,.v3 #signup select,.v3 #signup .country .ddi-trigger{height:50px;border-color:#393326;background:#10100e;font-size:14px;color:#f5f1e8}
+.v3 #signup input::placeholder{color:#aaa69a}
+.v3 #signup input:focus,.v3 #signup select:focus{border-color:#e1b63f;outline-color:#e1b63f;background:#181610}
+.v3 .button:focus-visible,.v3 a:focus-visible{outline-color:#e1b63f}
+.v3 .event-info{width:100%;gap:10px;margin-top:4px}
+.v3 .event-info p{font-size:8px;color:#e1b63f}.v3 .event-info strong{font-size:8px}
+.v3 .event-info img{filter:grayscale(1) brightness(1.5)}
+.v3 .portrait{border-color:#393326}.v3 .about{transform:none}
+.v3 footer{color:#aaa69a;border-color:#302b20}.v3 footer p+p{color:#d0ccc1}
+.v3 .ddi-trigger{border-color:#393326}.v3 .ddi-menu{background:#10100e;border-color:#393326}.v3 .ddi-search{background:#181610;color:#fff}.v3 .ddi-option:hover,.v3 .ddi-option[aria-selected=true]{background:#302817}
+.v3.checkin::before{background-image:url('assets/v3/HERO_V3.webp')}
+.v3.checkin::after{background:linear-gradient(180deg,rgba(5,5,5,.7),rgba(5,5,5,.94) 65%,#050505)}
+.v3.checkin .checkin-header .logo{width:245px;aspect-ratio:1600/417}
+.v3.checkin .checkin-header p,.v3.checkin .option,.v3.checkin #complete p{color:#c8c3b6}
+.v3.checkin .survey-card input:not([type=radio]):focus{outline-color:#e1b63f}
+.v3.checkin .back-button{border-color:#494132;color:#d0ccc1}
+@media(min-width:1665px){.v3 .hero{height:max(900px,52.084vw)}.v3 .hero-art img{width:100%;height:auto;left:0}.v3 .hero-inner{top:4.5vw;margin-left:18%}}
+@media(min-width:769px) and (max-width:1100px){.v3 .hero-inner{width:460px;margin-left:4%}.v3 h1{font-size:30px}.v3 .hero-art img{left:calc(50% - 900px)}}
+@media(max-width:768px){
+ .v3 .hero{height:auto;padding-bottom:40px}
+ .v3:not(.checkin) .hero-art,.v3:not(.checkin) .hero-art picture{height:auto;aspect-ratio:800/650;overflow:hidden;background:#000}
+ .v3:not(.checkin) .hero-art img{position:static;width:100%;height:auto;aspect-ratio:800/1000;transform:none;max-width:100%;object-fit:contain}
+ .v3:not(.checkin) .hero-art:after{display:none}
+ .v3:not(.checkin) .hero-inner{position:relative;top:auto;width:calc(100% - 32px);max-width:510px;margin:-7vw auto 0;padding:20px 16px;gap:14px;background:#080807;border-color:#d2ac4033;backdrop-filter:none}
+ .v3 .hero-inner .logo{width:220px}
+ .v3 #signup input,.v3 #signup select,.v3 #signup .country .ddi-trigger{height:52px;font-size:16px}
+ .v3 .hero-inner h1{font-size:clamp(25px,6.3vw,34px)}
+ .v3 .hero-inner .subtitle{font-size:14px}
+ .v3 .event-info{gap:7px}.v3 .event-info p,.v3 .event-info strong{font-size:7px}
+ .v3 .about{background:none}.v3 .bio>p{color:#b9b5aa}
+}
+
+.v3 .ddi-dialog{background:#10100e;border-color:#494132}.v3 .ddi-dialog .ddi-search{background:#181610;border-color:#494132;color:#fff}.v3 .ddi-dialog .ddi-option{color:#e8e4d9}.v3 .ddi-dialog .ddi-option:hover{background:#302817}.v3 .ddi-dialog .ddi-close{color:#e8e4d9}
