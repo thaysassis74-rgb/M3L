@@ -143,3 +143,11 @@
 
 /* Conteúdo sobre a arte, sem quadro no desktop e no celular. */
 .v3:not(.checkin) .hero-inner{background:transparent;border:0;border-radius:0;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none}
+
+/* Desktop e notebooks: arte inteira, sem largura fixa nem recorte lateral. */
+@media(min-width:769px){
+ .v3:not(.checkin) .hero{height:auto;min-height:max(900px,52.084vw);padding-bottom:52px}
+ .v3:not(.checkin) .hero-art img{width:100%;height:auto;max-width:100%;left:0;top:0;object-fit:contain;clip-path:none;transform:none;aspect-ratio:1920/1000}
+ .v3:not(.checkin) .hero-inner{top:auto;margin-top:64px;min-height:0}
+}
+@media(min-width:1665px){.v3:not(.checkin) .hero-inner{margin-top:4.5vw}}
